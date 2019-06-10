@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './login.css';
-import { withFirebase } from '../../Firebase';
 
 class Login extends Component {
 
@@ -10,24 +9,11 @@ class Login extends Component {
   };
 
   onSubmit = () => {
-    const {email, password} = this.state;
-
-    this.props.firebase
-      .doSignInWithEmailAndPassword(email, password)
-      .then((res) => {
-        console.log('success');
-      })
-      .catch(error => {
-        console.log('error');
-        this.setState({error});
-      });
 
   };
 
   render() {
     const {email, password} = this.state;
-
-    console.log(this.props);
 
     return (
       <div>
@@ -71,4 +57,4 @@ class Login extends Component {
   }
 }
 
-export default withFirebase(Login);
+export default Login;

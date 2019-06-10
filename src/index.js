@@ -5,13 +5,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-import Firebase, {FirebaseContext} from './Firebase';
 
 const app = (
   <BrowserRouter>
-    <FirebaseContext.Provider value={new Firebase()}>
-      <App/>
-    </FirebaseContext.Provider>
+    <App/>
   </BrowserRouter>
 )
 
