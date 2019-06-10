@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import Login from './containers/Login/Login';
-import Home from './containers/Home';
 import './App.css';
 
 class App extends Component {
@@ -10,8 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route path="/login" component={Login}/>
-          <Route path="/" component={Home}/>
+          <Route path="/" component={Login}/>
         </Switch>
       </div>
     );

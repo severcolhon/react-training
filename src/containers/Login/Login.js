@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import './login.css';
-import axios from 'axios';
-
-const FIREBASE_URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDRyFddyE3XCc-GlcaJE8z12LeIq83bebE';
+import { withFirebase } from '../../Firebase';
 
 class Login extends Component {
 
@@ -12,33 +10,35 @@ class Login extends Component {
   };
 
   onSubmit = () => {
-    const headers = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
-    const credentials = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    axios.post(FIREBASE_URL, credentials, headers)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
+    const {email, password} = this.state;
+
+    this.props.firebase
+      .doSignInWithEmailAndPassword(email, password)
+      .then((res) => {
+        console.log('success');
+      })
+      .catch(error => {
+        console.log('error');
+        this.setState({error});
+      });
+
   };
 
   render() {
     const {email, password} = this.state;
 
+    console.log(this.props);
+
     return (
       <div>
         <div className="container login-container">
           <div className="row">
-            <div className="col-md-6 login-form-1 mx-auto">
-              <h3>Login for Form 1</h3>
+            <div className="col-md-6 login-form mx-auto">
+              <h3>Login</h3>
               <form>
                 <div className="form-group">
                   <input
-                    type="text"
+                    type="email"
                     className="form-control"
                     placeholder="Your Email *"
                     value={email}
@@ -55,12 +55,12 @@ class Login extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <input
-                    type="submit"
+                  <button
+                    type="button"
                     className="btnSubmit"
-                    value="Login"
-                    onClick={() => this.onSubmit()}
-                  />
+                    onClick={this.onSubmit}
+                  >Login
+                  </button>
                 </div>
               </form>
             </div>
@@ -71,4 +71,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withFirebase(Login);
